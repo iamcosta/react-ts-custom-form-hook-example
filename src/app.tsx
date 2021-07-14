@@ -15,7 +15,7 @@ const App: React.FC = () => {
       age: ''
     },
     handleSubmit: data => {
-      console.log(data);
+      alert(`Do something with ${JSON.stringify(data)}`);
     }
   });
 
