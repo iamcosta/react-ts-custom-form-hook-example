@@ -14,6 +14,23 @@ const App: React.FC = () => {
       lastname: '',
       age: ''
     },
+    handleValidate: data => {
+      let invalidValues = {} as any;
+      if (!data.name) {
+        invalidValues.name = 'You must provide a Name!';
+      }
+      if (!data.lastname) {
+        invalidValues.lastname = 'You must provide a Lastname!';
+      }
+      if (!data.age) {
+        invalidValues.age = 'You must provide a Age!';
+      }
+
+      return invalidValues;
+    },
+    handleInvalidForm: (data, invalidValues) => {
+      alert(`Has empty fields! ${JSON.stringify(invalidValues)}`);
+    },
     handleSubmit: data => {
       alert(`Do something with ${JSON.stringify(data)}`);
     }
@@ -29,6 +46,7 @@ const App: React.FC = () => {
           value={formBind.values.name}
           onChange={formBind.handleChange}
         />
+        <span>{formBind.invalidValues.name}</span>
         <label htmlFor="name">Lastname</label>
         <input
           type="text"
@@ -36,6 +54,7 @@ const App: React.FC = () => {
           value={formBind.values.lastname}
           onChange={formBind.handleChange}
         />
+        <span>{formBind.invalidValues.lastname}</span>
         <label htmlFor="name">Age</label>
         <input
           type="text"
@@ -43,6 +62,7 @@ const App: React.FC = () => {
           value={formBind.values.age}
           onChange={formBind.handleChange}
         />
+        <span>{formBind.invalidValues.age}</span>
         <button type="submit">Submit</button>
       </form>
     </div>
