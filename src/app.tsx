@@ -12,9 +12,9 @@ const App: React.FC = () => {
     initialValues: {
       name: '',
       lastname: '',
-      age: ''
+      age: '',
     },
-    handleValidate: data => {
+    handleValidate: (data) => {
       let invalidValues = {} as any;
       if (!data.name) {
         invalidValues.name = 'You must provide a Name!';
@@ -22,8 +22,11 @@ const App: React.FC = () => {
       if (!data.lastname) {
         invalidValues.lastname = 'You must provide a Lastname!';
       }
+      if (Number(data.age) < 18) {
+        invalidValues.age = 'Age must be 18 or higher!';
+      }
       if (!data.age) {
-        invalidValues.age = 'You must provide a Age!';
+        invalidValues.age = 'You must provide an Age!';
       }
 
       return invalidValues;
@@ -31,9 +34,9 @@ const App: React.FC = () => {
     handleInvalidForm: (data, invalidValues) => {
       alert(`Has empty fields! ${JSON.stringify(invalidValues)}`);
     },
-    handleSubmit: data => {
+    handleSubmit: (data) => {
       alert(`Do something with ${JSON.stringify(data)}`);
-    }
+    },
   });
 
   return (

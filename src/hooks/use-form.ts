@@ -14,15 +14,15 @@ export function useForm<T>(props: useFormProps<T>) {
   const handleChange = useCallback((event: any) => {
     const inputName = event.target.getAttribute('name');
     const inputValue = event.target.value;
-    setValues(prev => ({
+    setValues((prev) => ({
       ...prev,
-      [inputName]: inputValue
+      [inputName]: inputValue,
     }));
   }, []);
 
   const handleSubmit = useCallback((event: any, data: T) => {
     if (props.handleValidate) {
-      const invalidValuesObject = props.handleValidate(data);
+      let invalidValuesObject = props.handleValidate(data);
       if (
         invalidValuesObject.constructor === Object &&
         Object.keys(invalidValuesObject).length !== 0
@@ -32,6 +32,11 @@ export function useForm<T>(props: useFormProps<T>) {
           props.handleInvalidForm(data, invalidValuesObject);
         }
       } else {
+        setInvalidValues((prev: any) => {
+          let newObj: any = { ...prev };
+          Object.keys(prev).forEach((prop) => (newObj[prop] = null));
+          return newObj;
+        });
         props.handleSubmit(data);
       }
     } else {
@@ -44,6 +49,6 @@ export function useForm<T>(props: useFormProps<T>) {
     values,
     handleChange,
     handleSubmit: (event: any) => handleSubmit(event, values),
-    invalidValues
+    invalidValues,
   };
 }
