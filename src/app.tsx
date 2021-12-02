@@ -1,5 +1,6 @@
 import React from 'react';
 import { useForm } from './hooks/use-form';
+import './app.css';
 
 interface formModel {
   name: string;
